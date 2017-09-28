@@ -1,10 +1,16 @@
 config_version=3
 
+config_version=null
+
 [application]
 
 config/name="Empty_2D_project"
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
+
+[display]
+
+window/size/height=768
 
 [rendering]
 
