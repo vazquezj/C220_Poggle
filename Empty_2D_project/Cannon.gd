@@ -10,4 +10,4 @@ func _process(delta):
 		var newBall = load("res://Ball.tscn").instance()
 		$"..".add_child(newBall)
 		newBall.position = self.position
-		newBall.linear_velocity = Vector2(cos(self.rotation) * 500, sin(self.rotation) * 500)
+		newBall.linear_velocity = Vector2(cos(self.rotation) * 300, sin(self.rotation) * 400)
