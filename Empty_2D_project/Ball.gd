@@ -4,4 +4,5 @@ func _ready():
 	pass
 
 func _on_Ball_body_entered( body ):
-	body.queue_free()
+	if body.is_in_group("Peg"):
+		body.queue_free()

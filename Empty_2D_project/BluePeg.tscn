@@ -7,7 +7,9 @@
 custom_solver_bias = 0.0
 radius = 15.6026
 
-[node name="BluePeg" type="RigidBody2D"]
+[node name="BluePeg" type="RigidBody2D" groups=[
+"Peg",
+]]
 
 editor/display_folded = true
 light_mask = 2

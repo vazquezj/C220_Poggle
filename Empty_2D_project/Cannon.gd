@@ -6,7 +6,7 @@ func _ready():
 func _process(delta):
 	self.look_at(get_global_mouse_position())
 	if Input.is_action_just_pressed("Shoot"):
-		#var newBall = $"../Ball".duplicate()
+		#ballOnScreen = true
 		var newBall = load("res://Ball.tscn").instance()
 		$"..".add_child(newBall)
 		newBall.position = self.position

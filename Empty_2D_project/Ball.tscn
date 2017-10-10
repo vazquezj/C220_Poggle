@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Ball.gd" type="Script" id=1]
 [ext_resource path="res://graphics/ball.png" type="Texture" id=2]
@@ -8,9 +8,13 @@
 custom_solver_bias = 0.0
 radius = 10.0
 
+[sub_resource type="CircleShape2D" id=2]
+
+custom_solver_bias = 0.0
+radius = 10.0
+
 [node name="Ball" type="RigidBody2D"]
 
-editor/display_folded = true
 position = Vector2( 512, 200 )
 input_pickable = false
 collision_layer = 1
@@ -46,6 +50,22 @@ visible = false
 position = Vector2( -0.165144, 0.191375 )
 scale = Vector2( 1.50497, 1.55352 )
 shape = SubResource( 1 )
+
+[node name="BallCatchTrigger" type="Area2D" parent="."]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="BallCatchTrigger"]
+
+position = Vector2( -0.10916, 0.10916 )
+scale = Vector2( 1.44936, 1.44936 )
+shape = SubResource( 2 )
 
 [connection signal="body_entered" from="." to="." method="_on_Ball_body_entered"]
 
