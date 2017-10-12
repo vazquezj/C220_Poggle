@@ -15,7 +15,7 @@ radius = 10.0
 
 [node name="Ball" type="RigidBody2D"]
 
-position = Vector2( 512, 200 )
+editor/display_folded = true
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
@@ -23,7 +23,7 @@ mode = 0
 mass = 1.0
 friction = 1.0
 bounce = 0.5
-gravity_scale = 1.0
+gravity_scale = 4.5
 custom_integrator = false
 continuous_cd = 0
 contacts_reported = 1
@@ -53,6 +53,7 @@ shape = SubResource( 1 )
 
 [node name="BallCatchTrigger" type="Area2D" parent="."]
 
+editor/display_folded = true
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -63,6 +64,7 @@ audio_bus_name = "Master"
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="BallCatchTrigger"]
 
+visible = false
 position = Vector2( -0.10916, 0.10916 )
 scale = Vector2( 1.44936, 1.44936 )
 shape = SubResource( 2 )

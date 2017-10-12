@@ -1,15 +1,15 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://OrangePeg.gd" type="Script" id=1]
-[ext_resource path="res://graphics/peg_orange.png" type="Texture" id=2]
-[ext_resource path="res://graphics/peg_orange_w_highlight.png" type="Texture" id=3]
+[ext_resource path="res://GreenPeg.gd" type="Script" id=1]
+[ext_resource path="res://graphics/peg_green.png" type="Texture" id=2]
+[ext_resource path="res://graphics/peg_green_w_highlight.png" type="Texture" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 
 custom_solver_bias = 0.0
-radius = 15.1631
+radius = 15.0429
 
-[node name="OrangePeg" type="RigidBody2D" groups=[
+[node name="GreenPeg" type="RigidBody2D" groups=[
 "Peg",
 ]]
 
@@ -37,9 +37,10 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="OrangePegSprite" type="Sprite" parent="."]
+[node name="GreenPegSprite" type="Sprite" parent="."]
 
 texture = ExtResource( 2 )
+_sections_unfolded = [ "Transform" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://graphics/wood_background.png" type="Texture" id=2]
@@ -7,6 +7,14 @@
 [ext_resource path="res://icon.png" type="Texture" id=5]
 [ext_resource path="res://graphics/ball_catcher.png" type="Texture" id=6]
 [ext_resource path="res://graphics/ball_catcher_front.png" type="Texture" id=7]
+[ext_resource path="res://graphics/wall.png" type="Texture" id=8]
+[ext_resource path="res://Floor.gd" type="Script" id=9]
+[ext_resource path="res://graphics/you_lose.png" type="Texture" id=10]
+[ext_resource path="res://OrangePeg.tscn" type="PackedScene" id=11]
+[ext_resource path="res://BluePeg.tscn" type="PackedScene" id=12]
+[ext_resource path="res://GreenPeg.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Score.gd" type="Script" id=14]
+[ext_resource path="res://BallsLeft.gd" type="Script" id=15]
 
 [sub_resource type="CapsuleShape2D" id=1]
 
@@ -22,7 +30,7 @@ extents = Vector2( 10, 4.33447 )
 [sub_resource type="Animation" id=3]
 
 resource_name = "BallCatcherMovement"
-length = 2.0
+length = 5.0
 loop = true
 step = 0.1
 tracks/0/type = "value"
@@ -31,11 +39,21 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1, 2 ),
+"times": PoolRealArray( 0, 2.5, 5 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 96, 660 ), Vector2( 932, 660 ), Vector2( 96, 660 ) ]
 }
+
+[sub_resource type="RectangleShape2D" id=4]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 381.974 )
+
+[sub_resource type="RectangleShape2D" id=5]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 10 )
 
 [node name="Main" type="Node"]
 
@@ -72,7 +90,8 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="BallCatcher" type="RigidBody2D" parent="."]
 
-position = Vector2( 543.821, 660 )
+editor/display_folded = true
+position = Vector2( 96, 660 )
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
@@ -157,32 +176,12 @@ _sections_unfolded = [ "Playback", "playback" ]
 
 [node name="LeftWall" type="RigidBody2D" parent="."]
 
+editor/display_folded = true
+position = Vector2( 0, 380 )
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
-mode = 0
-mass = 1.0
-friction = 1.0
-bounce = 0.0
-gravity_scale = 1.0
-custom_integrator = false
-continuous_cd = 0
-contacts_reported = 0
-contact_monitor = false
-sleeping = false
-can_sleep = true
-linear_velocity = Vector2( 0, 0 )
-linear_damp = -1.0
-angular_velocity = 0.0
-angular_damp = -1.0
-
-[node name="RightWall" type="RigidBody2D" parent="."]
-
-position = Vector2( 1024, 0 )
-input_pickable = false
-collision_layer = 1
-collision_mask = 1
-mode = 0
+mode = 1
 mass = 1.0
 friction = 1.0
 bounce = 0.0
@@ -198,7 +197,148 @@ linear_damp = -1.0
 angular_velocity = 0.0
 angular_damp = -1.0
 _sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="LeftWall"]
+
+texture = ExtResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+
+shape = SubResource( 4 )
+
+[node name="RightWall" type="RigidBody2D" parent="."]
+
+editor/display_folded = true
+position = Vector2( 1010, 380 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+mode = 1
+mass = 1.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 1.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+linear_velocity = Vector2( 0, 0 )
+linear_damp = -1.0
+angular_velocity = 0.0
+angular_damp = -1.0
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="RightWall"]
+
+texture = ExtResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
+
+shape = SubResource( 4 )
+
+[node name="Floor" type="Area2D" parent="."]
+
+editor/display_folded = true
+position = Vector2( 513.44, 820.599 )
+scale = Vector2( 16.0233, 1 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+
+visible = false
+position = Vector2( -0.104453, -0.21698 )
+scale = Vector2( 3.2161, 3.34535 )
+shape = SubResource( 5 )
+
+[node name="GameOver" type="Sprite" parent="."]
+
+visible = false
+position = Vector2( 512, 368 )
+texture = ExtResource( 10 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="OrangePeg" parent="." instance=ExtResource( 11 )]
+
+position = Vector2( 523.953, 443.759 )
+
+[node name="BluePeg" parent="." instance=ExtResource( 12 )]
+
+position = Vector2( 405.958, 350.213 )
+
+[node name="GreenPeg" parent="." instance=ExtResource( 13 )]
+
+position = Vector2( 646.057, 263.784 )
+
+[node name="GreenPeg2" parent="." instance=ExtResource( 13 )]
+
+position = Vector2( 689.226, 322.858 )
+
+[node name="OrangePeg2" parent="." instance=ExtResource( 11 )]
+
+position = Vector2( 718.763, 259.24 )
+
+[node name="BluePeg2" parent="." instance=ExtResource( 12 )]
+
+position = Vector2( 673.322, 197.894 )
+
+[node name="Score" type="Label" parent="."]
+
+margin_left = 44.0
+margin_top = 36.0
+margin_right = 244.0
+margin_bottom = 56.0
+rect_scale = Vector2( 3, 3 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Score: 0"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+script = ExtResource( 14 )
+_sections_unfolded = [ "Rect" ]
+
+[node name="BallsLeft" type="Label" parent="."]
+
+margin_left = 48.0
+margin_top = 95.0
+margin_right = 148.0
+margin_bottom = 115.0
+rect_scale = Vector2( 3, 3 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Balls Left: 5"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+script = ExtResource( 15 )
+_sections_unfolded = [ "Rect" ]
 
 [connection signal="area_entered" from="BallCatcher/BallCatch" to="." method="_on_BallCatch_area_entered"]
+
+[connection signal="body_entered" from="Floor" to="Floor" method="_on_Floor_body_entered"]
 
 
